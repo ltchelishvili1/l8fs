@@ -1,6 +1,4 @@
-@extends ('layout')
-
-@section('content')
+<x-layout>
    @foreach ($posts as $post) 
     <article>
          <h1> 
@@ -12,6 +10,5 @@
             {{$post->excerpt}}
          </div>
     </article>
-    @endforeach
-
-@endsection
+   @endforeach
+</x-layout>
