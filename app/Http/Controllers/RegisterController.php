@@ -23,6 +23,8 @@ class RegisterController extends Controller
         ]);
 
       User::create($attributes);
+
+      
       return redirect('/');
     }
 }
