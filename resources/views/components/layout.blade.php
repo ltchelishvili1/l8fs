@@ -7,17 +7,17 @@
 <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
 <style>
-    html{
+    html {
         scroll-behavior: smooth
     }
 
-    .clamp{
+    .clamp {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
-    .clamp.one-line{
+    .clamp.one-line {
         -webkit-line-clamp: 1;
     }
 </style>
@@ -33,34 +33,42 @@
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @guest
-                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
-                    <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>    
+                <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>
                 @else
-                    <x-dropdown>
-                        <x-slot name='trigger'>
-                            <button href="/register" class="text-xs font-bold uppercase">Welcome, {{auth()->user()->name}}!</button>
-                        </x-slot>
-                        <x-dropdown-item href="/admin/posts" >Dashboard</x-dropdown-item>
-                        <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')" >New Post</x-dropdown-item>
-                        <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()" >Log Out</x-dropdown-item>
-                        <form id="logout-form" method="POST" action="/logout" class="hidden">
-                            @csrf
-                           
-                        </form>
-                   
-                       
+                <x-dropdown>
+                    <x-slot name='trigger'>
+                        <button href="/register" class="text-xs font-bold uppercase">Welcome,
+                            {{auth()->user()->name}}!</button>
+                    </x-slot>
+                    @admin
+                        <x-dropdown-item href="/admin/posts">Dashboard</x-dropdown-item>
+                        <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New Post
+                    @endadmin
+                    </x-dropdown-item>
+
+                    <x-dropdown-item href="#" x-data="{}"
+                        @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+                    <form id="logout-form" method="POST" action="/logout" class="hidden">
+                        @csrf
+
+                    </form>
+
+
                 </x-dropdown>
-                 
+
                 @endguest
-                <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                <a href="#newsletter"
+                    class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
                 </a>
             </div>
         </nav>
 
         {{$slot}}
-      
-        <footer id="newsletter" class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
+
+        <footer id="newsletter"
+            class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
             <img src="/images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
             <h5 class="text-3xl">Stay in touch with the latest posts</h5>
             <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
@@ -75,20 +83,16 @@
                                 <img src="/images/mailbox-icon.svg" alt="mailbox letter">
                             </label>
                             <div>
-                                <input id="email" 
-                                    name="email"
-                                    type="text" 
-                                    placeholder="Your email address"
+                                <input id="email" name="email" type="text" placeholder="Your email address"
                                     class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
                                 @error('email')
-                                    <span class="text-xs text-red-500">{{$message}}</span>
-                                @enderror 
+                                <span class="text-xs text-red-500">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
 
                         <button type="submit"
-                                class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-                        >
+                            class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
                             Subscribe
                         </button>
                     </form>
@@ -97,6 +101,6 @@
         </footer>
     </section>
 
-    <x-flash/>
+    <x-flash />
 
 </body>
